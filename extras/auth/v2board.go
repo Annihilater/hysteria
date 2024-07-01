@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/apernet/hysteria/core/server"
+	"github.com/apernet/hysteria/core/v2/server"
 )
 
 var _ server.Authenticator = &V2boardApiProvider{}
@@ -70,7 +70,7 @@ func UpdateUsers(url string, interval time.Duration, trafficlogger server.Traffi
 		if trafficlogger != nil {
 			for uuid := range usersMap {
 				if _, exists := newUsersMap[uuid]; !exists {
-					trafficlogger.NewKick(strconv.Itoa(usersMap[uuid].ID))
+					trafficlogger.LogOnlineState(strconv.Itoa(usersMap[uuid].ID), false)
 				}
 			}
 		}
